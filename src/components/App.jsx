@@ -57,11 +57,10 @@ const App = () => {
   };
 
   const onImgClick = e => {
-    if (e.target.nodeName !== 'IMG') {
-      return;
+    setShowModal(!showModal);
+    if (e !== undefined) {
+      setCurrentPictures(e.target.dataset.img);
     }
-    setCurrentPictures(e.target.dataset.img);
-    toggleModal();
   };
 
   return (
