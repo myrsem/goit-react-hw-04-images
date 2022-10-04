@@ -7,23 +7,21 @@ const modalRoot = document.getElementById('modal-root');
 
 const Modal = ({ onClose, children }) => {
   useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
-  });
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
 
-  const handleClose = () => {
-    window.removeEventListener('keydown', handleKeyDown);
-    onClose();
-  };
-
-  const handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      handleClose();
-    }
-  };
-
-  const handleBackDrop = event => {
-    if (event.currentTarget === event.target) {
-      handleClose();
+  const handleBackDrop = e => {
+    if (e.target === e.currentTarget) {
+      onClose();
     }
   };
 

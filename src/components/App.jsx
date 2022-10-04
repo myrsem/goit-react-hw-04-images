@@ -22,21 +22,24 @@ const App = () => {
     if (!searchQuery) {
       return;
     }
-    const fetchImages = async () => {
-      try {
-        const request = await fetchAPI(searchQuery, page);
-        if (request.length === 0) {
-          return setError(`No results were found for ${searchQuery}!`);
-        }
-       setImages(prevImages => [...prevImages, ...request]);
-      } catch (error) {
-        setError('Something went wrong. Try again.')} finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchImages();
-  }, [page, searchQuery]);
+    // eslint-disable-next-line
+  }, [searchQuery]);
+
+  const fetchImages = async () => {
+    setIsLoading(true);
+    try {
+      const request = await fetchAPI(searchQuery, page);
+      if (request.length === 0) {
+        return setError(`No results were found for ${searchQuery}!`);
+      }
+     setImages(prevImages => [...prevImages, ...request]);
+    } catch (error) {
+      setError('Something went wrong. Try again.')
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const onChangeQuery = query => {
     if (searchQuery !== query) {
