@@ -24,7 +24,7 @@ const App = () => {
     }
     fetchImages();
     // eslint-disable-next-line
-  }, [searchQuery]);
+  }, [searchQuery, page]);
 
   const fetchImages = async () => {
     setIsLoading(true);
